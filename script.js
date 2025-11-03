@@ -171,234 +171,179 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // ===== TESTIMONIALS CAROUSEL (Slide Animation) =====
+    const carouselWrapper = document.querySelector('.carousel-wrapper');
     const carouselList = document.querySelector('.carousel-list');
     const testimonials = document.querySelectorAll('.carousel-list .testimonial');
     const prevBtn = document.querySelector('.carousel-btn.prev');
     const nextBtn = document.querySelector('.carousel-btn.next');
     const dotsContainer = document.querySelector('.carousel-dots');
     const carousel = document.querySelector('.testimonial-carousel');
-    
-    let currentIndex = 0;
-    const totalSlides = testimonials.length;
-    let autoplay;
-    
-    // Create dots dynamically
-    if (dotsContainer && totalSlides > 0) {
-        for (let i = 0; i < totalSlides; i++) {
-            const dot = document.createElement('button');
-            dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
-            dot.setAttribute('aria-label', `Go to testimonial ${i + 1}`);
-            dot.addEventListener('click', () => {
-                goToSlide(i);
-                resetAutoplay();
-            });
-            dotsContainer.appendChild(dot);
-        }
-    }
 
-    function updateDots() {
-        const dots = document.querySelectorAll('.carousel-dot');
-        dots.forEach((dot, i) => {
-            dot.classList.toggle('active', i === currentIndex);
-        });
-    }
-
-    function goToSlide(index, animate = true) {
-        if (!carouselList) return;
-        
-        currentIndex = index;
-        const offset = -currentIndex * 100;
-        
-        if (animate) {
-            carouselList.style.transition = 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
-        } else {
-            carouselList.style.transition = 'none';
-        }
-        
-        carouselList.style.transform = `translateX(${offset}%)`;
-        updateDots();
-    }
-
-    function nextSlide() {
-        const newIndex = (currentIndex + 1) % totalSlides;
-        goToSlide(newIndex);
-    }
-
-    function prevSlide() {
-        const newIndex = (currentIndex - 1 + totalSlides) % totalSlides;
-        goToSlide(newIndex);
-    }
-
-    function resetAutoplay() {
-        clearInterval(autoplay);
-        autoplay = setInterval(nextSlide, 7000);
-    }
-
-    // Button controls
-    if (nextBtn) nextBtn.addEventListener('click', () => {
-        nextSlide();
-        resetAutoplay();
-    });
-    
-    if (prevBtn) prevBtn.addEventListener('click', () => {
-        prevSlide();
-        resetAutoplay();
-    });
-
-    // Auto rotate
-    if (carousel) {
-        autoplay = setInterval(nextSlide, 7000);
-        carousel.addEventListener('mouseenter', () => clearInterval(autoplay));
-        carousel.addEventListener('mouseleave', resetAutoplay);
-    }
-
-    // Keyboard navigation
-    document.addEventListener('keydown', (e) => {
-        if (!carousel) return;
-        const rect = carousel.getBoundingClientRect();
-        const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
-        
-        if (isVisible) {
-            if (e.key === 'ArrowLeft') {
-                prevSlide();
-                resetAutoplay();
-            } else if (e.key === 'ArrowRight') {
-                nextSlide();
-                resetAutoplay();
-            }
-        }
-    });
-
-    // Touch/Swipe support with live tracking
-    if (carousel && carouselList) {
-        let startX = 0;
-        let startY = 0;
+    if (carouselWrapper && carouselList && carousel && testimonials.length > 0) {
+        let currentIndex = 0;
+        const totalSlides = testimonials.length;
+        let autoplay;
         let isDragging = false;
+        let startPos = 0;
         let currentTranslate = 0;
         let prevTranslate = 0;
         let animationID = 0;
 
-        // Touch events
-        carousel.addEventListener('touchstart', (e) => {
-            startX = e.touches[0].clientX;
-            startY = e.touches[0].clientY;
-            isDragging = true;
-            animationID = requestAnimationFrame(animation);
-            carouselList.style.transition = 'none';
-            clearInterval(autoplay);
-        }, { passive: true });
-
-        carousel.addEventListener('touchmove', (e) => {
-            if (!isDragging) return;
-            const currentX = e.touches[0].clientX;
-            const currentY = e.touches[0].clientY;
-            const diffX = currentX - startX;
-            const diffY = Math.abs(currentY - startY);
-            
-            // Only horizontal swipe
-            if (Math.abs(diffX) > diffY) {
-                const slideWidth = carousel.offsetWidth;
-                currentTranslate = prevTranslate + (diffX / slideWidth) * 100;
-                
-                // Limit swipe range
-                const maxTranslate = 0;
-                const minTranslate = -(totalSlides - 1) * 100;
-                currentTranslate = Math.max(minTranslate, Math.min(maxTranslate, currentTranslate));
-            }
-        }, { passive: true });
-
-        carousel.addEventListener('touchend', (e) => {
-            if (!isDragging) return;
-            isDragging = false;
-            cancelAnimationFrame(animationID);
-            
-            const movedBy = currentTranslate - prevTranslate;
-            
-            // Determine if should change slide
-            if (Math.abs(movedBy) > 15) { // 15% threshold
-                if (movedBy < 0) {
-                    nextSlide();
-                } else {
-                    prevSlide();
-                }
-            } else {
-                goToSlide(currentIndex);
-            }
-            
-            prevTranslate = -currentIndex * 100;
-            currentTranslate = prevTranslate;
-            resetAutoplay();
-        });
-
-        // Mouse drag events
-        carousel.addEventListener('mousedown', (e) => {
-            startX = e.clientX;
-            isDragging = true;
-            animationID = requestAnimationFrame(animation);
-            carouselList.style.transition = 'none';
-            carousel.style.cursor = 'grabbing';
-            clearInterval(autoplay);
-        });
-
-        carousel.addEventListener('mousemove', (e) => {
-            if (!isDragging) return;
-            const currentX = e.clientX;
-            const diffX = currentX - startX;
-            const slideWidth = carousel.offsetWidth;
-            currentTranslate = prevTranslate + (diffX / slideWidth) * 100;
-            
-            // Limit drag range
-            const maxTranslate = 0;
-            const minTranslate = -(totalSlides - 1) * 100;
-            currentTranslate = Math.max(minTranslate, Math.min(maxTranslate, currentTranslate));
-        });
-
-        carousel.addEventListener('mouseup', () => {
-            if (!isDragging) return;
-            isDragging = false;
-            cancelAnimationFrame(animationID);
-            carousel.style.cursor = 'grab';
-            
-            const movedBy = currentTranslate - prevTranslate;
-            
-            if (Math.abs(movedBy) > 15) {
-                if (movedBy < 0) {
-                    nextSlide();
-                } else {
-                    prevSlide();
-                }
-            } else {
-                goToSlide(currentIndex);
-            }
-            
-            prevTranslate = -currentIndex * 100;
-            currentTranslate = prevTranslate;
-            resetAutoplay();
-        });
-
-        carousel.addEventListener('mouseleave', () => {
-            if (isDragging) {
-                isDragging = false;
-                cancelAnimationFrame(animationID);
-                carousel.style.cursor = 'grab';
-                goToSlide(currentIndex);
-                prevTranslate = -currentIndex * 100;
-                currentTranslate = prevTranslate;
-            }
-        });
-
-        function animation() {
-            if (isDragging) {
-                carouselList.style.transform = `translateX(${currentTranslate}%)`;
-                requestAnimationFrame(animation);
+        // Create dots dynamically
+        if (dotsContainer && totalSlides > 0) {
+            for (let i = 0; i < totalSlides; i++) {
+                const dot = document.createElement('button');
+                dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+                dot.setAttribute('aria-label', `Go to testimonial ${i + 1}`);
+                dot.addEventListener('click', () => {
+                    goToSlide(i);
+                    resetAutoplay();
+                });
+                dotsContainer.appendChild(dot);
             }
         }
 
-        // Set initial cursor
+        function updateDots() {
+            const dots = document.querySelectorAll('.carousel-dot');
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentIndex);
+            });
+        }
+
+        function setPositionByIndex() {
+            currentTranslate = currentIndex * -carouselWrapper.offsetWidth;
+            prevTranslate = currentTranslate;
+            setSliderPosition();
+        }
+
+        function setSliderPosition() {
+            carouselList.style.transform = `translateX(${currentTranslate}px)`;
+        }
+
+        function goToSlide(index) {
+            currentIndex = index;
+            carouselList.style.transition = 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
+            setPositionByIndex();
+            updateDots();
+        }
+
+        function nextSlide() {
+            const newIndex = (currentIndex + 1) % totalSlides;
+            goToSlide(newIndex);
+        }
+
+        function prevSlide() {
+            const newIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+            goToSlide(newIndex);
+        }
+
+        function resetAutoplay() {
+            clearInterval(autoplay);
+            autoplay = setInterval(nextSlide, 7000);
+        }
+
+        // Button controls
+        if (nextBtn) nextBtn.addEventListener('click', () => {
+            nextSlide();
+            resetAutoplay();
+        });
+
+        if (prevBtn) prevBtn.addEventListener('click', () => {
+            prevSlide();
+            resetAutoplay();
+        });
+
+        // Auto rotate
+        if (carousel) {
+            autoplay = setInterval(nextSlide, 7000);
+            carousel.addEventListener('mouseenter', () => clearInterval(autoplay));
+            carousel.addEventListener('mouseleave', resetAutoplay);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (!carousel) return;
+            const rect = carousel.getBoundingClientRect();
+            const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+
+            if (isVisible) {
+                if (e.key === 'ArrowLeft') {
+                    prevSlide();
+                    resetAutoplay();
+                } else if (e.key === 'ArrowRight') {
+                    nextSlide();
+                    resetAutoplay();
+                }
+            }
+        });
+
+        // Touch/Swipe support with live tracking
+        function touchStart(index) {
+            return function (event) {
+                isDragging = true;
+                startPos = getPositionX(event);
+                animationID = requestAnimationFrame(animation);
+                carouselList.style.transition = 'none';
+                clearInterval(autoplay);
+                carousel.style.cursor = 'grabbing';
+            };
+        }
+
+        function touchMove(event) {
+            if (isDragging) {
+                const currentPosition = getPositionX(event);
+                currentTranslate = prevTranslate + currentPosition - startPos;
+            }
+        }
+
+        function touchEnd() {
+            isDragging = false;
+            cancelAnimationFrame(animationID);
+            carousel.style.cursor = 'grab';
+
+            const movedBy = currentTranslate - prevTranslate;
+
+            // If moved enough negative then snap to next slide, if moved enough positive snap to prev
+            if (movedBy < -100 && currentIndex < totalSlides - 1) {
+                currentIndex += 1;
+            }
+            if (movedBy > 100 && currentIndex > 0) {
+                currentIndex -= 1;
+            }
+
+            carouselList.style.transition = 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
+            setPositionByIndex();
+            updateDots();
+            resetAutoplay();
+        }
+
+        function getPositionX(event) {
+            return event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
+        }
+
+        function animation() {
+            setSliderPosition();
+            if (isDragging) requestAnimationFrame(animation);
+        }
+
+        // Event listeners
+        carousel.addEventListener('touchstart', touchStart(currentIndex), { passive: true });
+        carousel.addEventListener('touchmove', touchMove, { passive: true });
+        carousel.addEventListener('touchend', touchEnd);
+
+        carousel.addEventListener('mousedown', touchStart(currentIndex));
+        carousel.addEventListener('mousemove', touchMove);
+        carousel.addEventListener('mouseup', touchEnd);
+        carousel.addEventListener('mouseleave', () => {
+            if (isDragging) {
+                touchEnd();
+            }
+        });
+
+        // Set initial cursor and position
         carousel.style.cursor = 'grab';
-        prevTranslate = 0;
-        currentTranslate = 0;
-    }
+        setPositionByIndex();
+    } // End of carousel if block
 
     // ===== SMOOTH SCROLL FOR NAVIGATION (Apple easing) =====
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
