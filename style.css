@@ -777,6 +777,10 @@ body{
   letter-spacing:-0.015em;
   font-style:italic;
   max-width:100%;
+  width:100%;
+  word-wrap:break-word;
+  overflow-wrap:break-word;
+  hyphens:auto;
 }
 .author{
   font-weight:600;
@@ -996,14 +1000,24 @@ body{
   .stats-grid{grid-template-columns:repeat(2,1fr);gap:40px}
   .stat-number{font-size:clamp(40px, 10vw, 56px)}
   
-  .testimonial-carousel{padding:40px 20px}
+  /* Map mobile */
+  .map-wrapper{margin-top:var(--spacing-md)}
+  .map-wrapper h3{font-size:24px;margin-bottom:20px}
+  .map-wrapper iframe{height:300px;border-radius:12px}
+  
+  /* Testimonial mobile */
+  .testimonial-carousel{padding:50px 24px}
+  .carousel-wrapper{padding:0}
+  .carousel-list{min-height:auto}
+  .testimonial{padding:20px 0}
   .carousel-btn{width:36px;height:36px;font-size:16px}
   .carousel-btn.prev{left:10px}
   .carousel-btn.next{right:10px}
-  .quote{font-size:19px}
+  .quote{font-size:17px;line-height:1.6;margin-bottom:24px}
+  .author{font-size:15px}
   
   /* Testimonial dots mobile */
-  .carousel-dots{gap:6px}
+  .carousel-dots{gap:6px;margin-top:24px}
   .carousel-dot{width:6px;height:6px}
   .carousel-dot.active{width:20px}
   
@@ -1018,4 +1032,18 @@ body{
 
 @media (max-width:480px){
   .stats-grid{grid-template-columns:1fr}
+  
+  /* Testimonial extra small mobile */
+  .testimonial-carousel{padding:40px 20px}
+  .carousel-wrapper{padding:0}
+  .carousel-list{min-height:auto}
+  .testimonial{padding:20px 0}
+  .quote{font-size:16px;margin-bottom:20px;line-height:1.65}
+  .author{font-size:14px}
+  .carousel-btn{width:32px;height:32px}
+  .carousel-btn.prev{left:8px}
+  .carousel-btn.next{right:8px}
+  
+  /* Map extra small mobile */
+  .map-wrapper iframe{height:250px}
 }
