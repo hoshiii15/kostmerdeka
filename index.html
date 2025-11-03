@@ -7,22 +7,23 @@
     <title>Kost Merdeka — Hunian Premium untuk Profesional & Mahasiswa</title>
     <link rel="stylesheet" href="./style.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
     <!-- Apple-style minimal header -->
     <header class="site-header">
         <div class="header-inner">
-            <div class="brand">Kost <span class="accent">Merdeka</span></div>
-            <nav class="nav">
+            <a class="brand" href="#hero">Kost <span class="accent">Merdeka</span></a>
+            <nav id="main-nav" class="nav" role="navigation" aria-label="Main navigation">
                 <a href="#features">Fasilitas</a>
                 <a href="#rooms">Tipe Kamar</a>
                 <a href="#gallery">Galeri</a>
                 <a href="#testimonials">Testimoni</a>
                 <a class="btn-outline" href="#cta">Booking</a>
             </nav>
-            <button class="hamburger" aria-label="Toggle menu">
+            <button class="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="main-nav"
+                type="button">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -32,13 +33,14 @@
 
     <main>
         <!-- Hero - Fullscreen with Video Background -->
-        <section class="hero">
+        <section id="hero" class="hero">
             <div class="hero-bg">
                 <video autoplay muted loop playsinline class="hero-video">
                     <source src="images/hero-video.mp4" type="video/mp4">
                 </video>
                 <div class="hero-image-fallback">
-                    <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=1920&h=1080&fit=crop&q=80" alt="Kost Merdeka - Background" />
+                    <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=1920&h=1080&fit=crop&q=80"
+                        alt="Kost Merdeka - Background" />
                 </div>
                 <div class="hero-overlay"></div>
             </div>
@@ -59,7 +61,8 @@
         <section class="section about-split">
             <div class="about-container">
                 <div class="about-image reveal-left">
-                    <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&h=1000&fit=crop&q=80" alt="Kost Merdeka - Eksterior" />
+                    <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&h=1000&fit=crop&q=80"
+                        alt="Kost Merdeka - Eksterior" />
                 </div>
                 <div class="about-content reveal-right">
                     <h2>Lebih Dari Sekadar Tempat Tinggal</h2>
@@ -105,7 +108,7 @@
                     <span class="stat-label">Keamanan Siaga</span>
                 </div>
                 <div class="stat-item reveal stagger-3">
-                    <span class="stat-number" data-target="5" data-suffix=" Thn">0 Thn</span>
+                    <span class="stat-number" data-target="5" data-suffix="Thn">0Thn</span>
                     <span class="stat-label">Pengalaman</span>
                 </div>
             </div>
@@ -190,7 +193,8 @@
                 <p class="section-subtitle reveal">Pilih ruang yang sesuai dengan kebutuhan dan gaya hidup Anda.</p>
                 <div class="rooms-grid">
                     <article class="room-card reveal stagger-1">
-                        <img src="https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=600&h=400&fit=crop&q=80" alt="Standard" />
+                        <img src="https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=600&h=400&fit=crop&q=80"
+                            alt="Standard" />
                         <div class="room-body">
                             <h3>Standard</h3>
                             <p>Pilihan ideal untuk mahasiswa yang mencari kenyamanan tanpa menguras budget.</p>
@@ -210,7 +214,8 @@
                     </article>
 
                     <article class="room-card reveal stagger-2">
-                        <img src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=600&h=400&fit=crop&q=80" alt="Deluxe" />
+                        <img src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=600&h=400&fit=crop&q=80"
+                            alt="Deluxe" />
                         <div class="room-body">
                             <h3>Deluxe</h3>
                             <p>Ruang lebih luas dengan kamar mandi privat dan AC untuk kenyamanan ekstra.</p>
@@ -230,7 +235,8 @@
                     </article>
 
                     <article class="room-card reveal stagger-3">
-                        <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=600&h=400&fit=crop&q=80" alt="Premium" />
+                        <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=600&h=400&fit=crop&q=80"
+                            alt="Premium" />
                         <div class="room-body">
                             <h3>Premium</h3>
                             <p>Fasilitas terlengkap untuk profesional yang menginginkan produktivitas maksimal.</p>
@@ -259,10 +265,18 @@
                 <p class="section-subtitle reveal">Lihat suasana dan fasilitas Kost Merdeka.</p>
 
                 <div class="gallery-grid">
-                    <img class="reveal stagger-1" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=600&h=400&fit=crop&q=80" alt="Galeri 1" />
-                    <img class="reveal stagger-2" src="https://images.unsplash.com/photo-1484154218962-a197022b5858?w=600&h=400&fit=crop&q=80" alt="Galeri 2" />
-                    <img class="reveal stagger-3" src="https://images.unsplash.com/photo-1540518614846-7eded433c457?w=600&h=400&fit=crop&q=80" alt="Galeri 3" />
-                    <img class="reveal stagger-4" src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&h=400&fit=crop&q=80" alt="Galeri 4" />
+                    <img class="reveal stagger-1"
+                        src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=600&h=400&fit=crop&q=80"
+                        alt="Galeri 1" />
+                    <img class="reveal stagger-2"
+                        src="https://images.unsplash.com/photo-1484154218962-a197022b5858?w=600&h=400&fit=crop&q=80"
+                        alt="Galeri 2" />
+                    <img class="reveal stagger-3"
+                        src="https://images.unsplash.com/photo-1540518614846-7eded433c457?w=600&h=400&fit=crop&q=80"
+                        alt="Galeri 3" />
+                    <img class="reveal stagger-4"
+                        src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&h=400&fit=crop&q=80"
+                        alt="Galeri 4" />
                 </div>
 
                 <div class="map-wrapper reveal">
@@ -280,7 +294,7 @@
                 <h2 class="section-title reveal">Testimoni Penghuni</h2>
                 <div class="testimonial-carousel reveal">
                     <ul class="carousel-list">
-                        <li class="testimonial active">
+                        <li class="testimonial">
                             <p class="quote">Kamar bersih, WiFi kencang. Sangat membantu selama kuliah. Lokasi strategis
                                 juga!</p>
                             <div class="author">Siti, Mahasiswi</div>
@@ -297,8 +311,17 @@
                             <div class="author">Rini, Pegawai Swasta</div>
                         </li>
                     </ul>
-                    <button class="carousel-btn prev" aria-label="Sebelumnya">‹</button>
-                    <button class="carousel-btn next" aria-label="Berikutnya">›</button>
+                    <button class="carousel-btn prev" aria-label="Sebelumnya">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M12 16L6 10L12 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <button class="carousel-btn next" aria-label="Berikutnya">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M8 4L14 10L8 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <div class="carousel-dots"></div>
                 </div>
             </div>
         </section>
