@@ -1,18 +1,10 @@
 # 🏠 Kost Merdeka — Premium Landing Page# Kost Merdeka — Landing Page
 
-
-
 Landing page profesional dengan **Apple-inspired design**, scrollytelling effects, **video background**, dan **hamburger menu** mobile.Ini adalah landing page statis sederhana untuk _Kost Merdeka_. Buatannya minimal, elegan, dan responsif dengan palet monokrom + aksen biru tua.
-
-
 
 ---## ✨ Professional Scrollytelling Features
 
-
-
 ## ✨ New Features (v2.0)Landing page ini dilengkapi dengan efek scrollytelling modern:
-
-
 
 ### 🎬 **Video Background**- **Scroll Progress Bar** — Indikator progress di atas halaman saat scroll
 
@@ -70,17 +62,13 @@ Masukkan gambar ke folder `images/`:Jika folder `images/` kosong, Anda dapat men
 
 - `gallery-1.jpg`, `gallery-2.jpg`, `gallery-3.jpg`, `gallery-4.jpg`### Mengubah lokasi peta
 
-
-
 ### 2. **Update Contact Info**Peta ter-embed di `index.html` menggunakan query Google Maps `Universitas Merdeka Malang`. Untuk mengganti ke alamat yang tepat, ubah atribut `src` iframe, contoh:
-
-
 
 #### WhatsApp Number (3 locations in index.html)```html
 
 Ganti `6281234567890` dengan nomor Anda:<iframe
 
-```html  src="https://www.google.com/maps?q=Jalan+Contoh+No+1+City&output=embed"
+```html src="https://www.google.com/maps?q=Jalan+Contoh+No+1+City&output=embed"
 
 <!-- Line ~300 -->  ...
 
@@ -92,13 +80,11 @@ Ganti `6281234567890` dengan nomor Anda:<iframe
 
 <a href="tel:+6281234567890" id="phoneBtn">### Mengganti nomor WhatsApp
 
-
-
 <!-- Line ~304 -->Link WhatsApp pada tombol-tombol booking menggunakan nomor placeholder `+6281234567890`. Ganti ke nomor asli di `index.html` (semua `wa.me/` links).
 
 <a href="tel:+6281234567890" id="contactPhone">+62 812-3456-7890</a>
 
-```### Mengubah warna aksen
+````### Mengubah warna aksen
 
 
 
@@ -116,106 +102,61 @@ Ganti `6281234567890` dengan nomor Anda:<iframe
 
 <span id="addressText">Jl. Merdeka No. 123, Malang</span>}
 
-``````
-
-
+````
 
 ### 3. **Update Google Maps**Untuk warna emas, gunakan: `--accent: #d4af37;` dan `--accent-light: #f0d475;`
 
-```html
-
+````html
 <!-- Line ~260 -->### Menyesuaikan statistik
 
 <iframe id="mapEmbed" src="https://www.google.com/maps?q=..."></iframe>
 
-```Edit nilai `data-target` pada elemen `.stat-number` di bagian Stats:
+```Edit nilai `data-target` pada elemen `.stat-number` di bagian Stats: Get
+embed code from [Google Maps](https://maps.google.com):```html 1. Search your
+location<span class="stat-number" data-target="50" data-suffix="+">0+</span>
 
-
-
-Get embed code from [Google Maps](https://maps.google.com):```html
-
-1. Search your location<span class="stat-number" data-target="50" data-suffix="+">0+</span>
-
-2. Click "Share" → "Embed a map"```
-
-3. Copy iframe code
-
-## Performance Tips
-
-### 4. **Optional: Add Video Background**
-
-- Kompres foto sebelum upload (gunakan TinyPNG atau ImageOptim)
-
-**Video Specs:**- Format optimal: WebP untuk web modern, fallback JPEG
-
-- Format: MP4 (H.264 codec)- Ukuran rekomendasi:
-
-- Resolution: 1920x1080 or 1280x720  - Hero image: 1200x800px
-
-- Duration: 10-20 seconds (loops)  - Room images: 800x600px
-
-- File size: **<10MB**  - Gallery images: 600x600px
-
-- Filename: `hero-video.mp4`
-
-## Browser Compatibility
-
-**Compress tools:**
-
-- [HandBrake](https://handbrake.fr/) (free)- Chrome/Edge 90+ ✅
-
-- [CloudConvert](https://cloudconvert.com/mp4-converter) (online)- Firefox 88+ ✅
-
-- FFmpeg: `ffmpeg -i input.mp4 -vcodec h264 -b:v 2M -s 1280x720 hero-video.mp4`- Safari 14+ ✅
-
-- Mobile browsers (iOS Safari, Chrome Mobile) ✅
-
+2. Click "Share" → "Embed a map"``` 3. Copy iframe code ## Performance Tips ###
+4. **Optional: Add Video Background** - Kompres foto sebelum upload (gunakan
+TinyPNG atau ImageOptim) **Video Specs:**- Format optimal: WebP untuk web
+modern, fallback JPEG - Format: MP4 (H.264 codec)- Ukuran rekomendasi: -
+Resolution: 1920x1080 or 1280x720 - Hero image: 1200x800px - Duration: 10-20
+seconds (loops) - Room images: 800x600px - File size: **<10MB** - Gallery
+images: 600x600px - Filename: `hero-video.mp4` ## Browser Compatibility
+**Compress tools:** - [HandBrake](https://handbrake.fr/) (free)- Chrome/Edge 90+
+✅ - [CloudConvert](https://cloudconvert.com/mp4-converter) (online)- Firefox
+88+ ✅ - FFmpeg: `ffmpeg -i input.mp4 -vcodec h264 -b:v 2M -s 1280x720
+hero-video.mp4`- Safari 14+ ✅ - Mobile browsers (iOS Safari, Chrome Mobile) ✅
 **No video?** Just skip this step — website auto-falls back to image!
+Intersection Observer dan CSS transforms didukung semua browser modern. ### 5.
+**Test** Open `index.html` in browser and check:## Notes & Next Steps - [ ]
+Video plays (if added) - [ ] All images load- Tambahkan foto asli ke folder
+`images/`. - [ ] WhatsApp link works- Saya menggunakan teks "Dekat Universitas
+Merdeka" sebagai asumsi awal. Jika Anda ingin nama lokasi lain, beri tahu saya
+dan saya akan sesuaikan peta dan teks lokasi. - [ ] Email link opens mail app-
+Jika mau, saya bisa menambahkan ikon SVG yang lebih detil, animasi kecil, atau
+versi PDF untuk cetak. - [ ] Map shows correct location - [ ] Hamburger menu
+works on mobile (<734px)Jika mau, saya dapat juga: - [ ] Scroll animations
+smooth - Menghasilkan versi bahasa Inggris. ---- Mengoptimalkan gambar kecil
+(responsive srcset). - Menyambungkan form kontak atau integrasi booking. ## 📁
+File Structure
+````
 
-Intersection Observer dan CSS transforms didukung semua browser modern.
-
-### 5. **Test**
-
-Open `index.html` in browser and check:## Notes & Next Steps
-
-- [ ] Video plays (if added)
-
-- [ ] All images load- Tambahkan foto asli ke folder `images/`.
-
-- [ ] WhatsApp link works- Saya menggunakan teks "Dekat Universitas Merdeka" sebagai asumsi awal. Jika Anda ingin nama lokasi lain, beri tahu saya dan saya akan sesuaikan peta dan teks lokasi.
-
-- [ ] Email link opens mail app- Jika mau, saya bisa menambahkan ikon SVG yang lebih detil, animasi kecil, atau versi PDF untuk cetak.
-
-- [ ] Map shows correct location
-
-- [ ] Hamburger menu works on mobile (<734px)Jika mau, saya dapat juga:
-
-- [ ] Scroll animations smooth
-
-- Menghasilkan versi bahasa Inggris.
-
----- Mengoptimalkan gambar kecil (responsive srcset).
-
-- Menyambungkan form kontak atau integrasi booking.
-
-## 📁 File Structure
-
-```
 kost-merdeka2/
-├── index.html                  # Main HTML
-├── style.css                   # Apple-style CSS  
-├── script.js                   # Scrollytelling JS
+├── index.html # Main HTML
+├── style.css # Apple-style CSS  
+├── script.js # Scrollytelling JS
 ├── images/
-│   ├── kost-luar.jpeg         # Hero fallback
-│   ├── hero-video.mp4         # 🆕 Video (optional)
-│   ├── room-*.jpg             # Room photos
-│   └── gallery-*.jpg          # Gallery photos
-├── README.md                  # This file
-├── CUSTOMIZATION-GUIDE.md     # Detailed guide
-├── VIDEO-SETUP-GUIDE.md       # 🆕 Video tutorial
-├── APPLE-REDESIGN.md          # Design explained
-└── SCROLLYTELLING-GUIDE.md    # Animation features
-```
+│ ├── kost-luar.jpeg # Hero fallback
+│ ├── hero-video.mp4 # 🆕 Video (optional)
+│ ├── room-_.jpg # Room photos
+│ └── gallery-_.jpg # Gallery photos
+├── README.md # This file
+├── CUSTOMIZATION-GUIDE.md # Detailed guide
+├── VIDEO-SETUP-GUIDE.md # 🆕 Video tutorial
+├── APPLE-REDESIGN.md # Design explained
+└── SCROLLYTELLING-GUIDE.md # Animation features
+
+````
 
 ---
 
@@ -248,7 +189,7 @@ kost-merdeka2/
 
 **File sizes:**
 - HTML: ~12KB
-- CSS: ~14KB  
+- CSS: ~14KB
 - JS: ~7KB
 - **Total:** ~33KB (before media)
 
@@ -260,22 +201,27 @@ kost-merdeka2/
 Edit `style.css` (line ~7):
 ```css
 --accent: #0066CC;  /* Change this */
-```
+````
 
 **Popular colors:**
+
 - Apple Blue: `#0066CC` (current)
 - Green: `#34C759`
 - Purple: `#AF52DE`
 - Orange: `#FF9500`
 
 ### Update Room Prices
+
 Edit `index.html` (lines ~190, ~220, ~240):
+
 ```html
 <div class="price">Rp 1.200.000<span>/bln</span></div>
 ```
 
 ### Change Stats
+
 Edit `index.html` (lines ~55-68):
+
 ```html
 <span class="stat-number" data-target="50">0</span>
 ```
@@ -294,24 +240,28 @@ Edit `index.html` (lines ~55-68):
 ## 🆘 Troubleshooting
 
 ### Video not playing?
+
 ✅ Check file size (<10MB)  
 ✅ Ensure MP4 format (H.264)  
 ✅ Filename exact: `hero-video.mp4`  
-✅ Clear browser cache  
+✅ Clear browser cache
 
 ### Hamburger menu not working?
+
 ✅ Test on mobile or resize <734px  
 ✅ Check console for JS errors  
 ✅ Verify script.js loaded
 
 ### Images not showing?
+
 ✅ Check path: `images/file.jpg` (case sensitive)  
 ✅ Verify files exist  
 ✅ Check extension (.jpg vs .jpeg)
 
 ### WhatsApp not opening?
+
 ✅ Format: `wa.me/628xxxxx` (no + in URL)  
-✅ Use `tel:+628xxxxx` for phone  
+✅ Use `tel:+628xxxxx` for phone
 
 ---
 
@@ -319,7 +269,7 @@ Edit `index.html` (lines ~55-68):
 
 - **CUSTOMIZATION-GUIDE.md** — Step-by-step customization
 - **VIDEO-SETUP-GUIDE.md** — 🆕 Complete video tutorial
-- **APPLE-REDESIGN.md** — Apple design philosophy  
+- **APPLE-REDESIGN.md** — Apple design philosophy
 - **SCROLLYTELLING-GUIDE.md** — Animation features
 
 ---
@@ -327,12 +277,14 @@ Edit `index.html` (lines ~55-68):
 ## 🚀 Performance
 
 **Lighthouse targets:**
+
 - Performance: 95+
 - Accessibility: 100
 - Best Practices: 95+
 - SEO: 100
 
 **Optimizations:**
+
 - `requestAnimationFrame` for scroll
 - `IntersectionObserver` for reveals
 - Lazy loading images
@@ -344,12 +296,14 @@ Edit `index.html` (lines ~55-68):
 ## 🎯 SEO Tips
 
 1. **Update meta tags:**
+
    ```html
    <title>Kost Merdeka — Hunian Premium di Malang</title>
-   <meta name="description" content="...">
+   <meta name="description" content="..." />
    ```
 
 2. **Optimize images:**
+
    - Use WebP format
    - Add alt text
    - Compress with TinyPNG
