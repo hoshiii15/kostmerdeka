@@ -346,57 +346,59 @@ document.addEventListener('DOMContentLoaded', function () {
     } // End of carousel if block
 
     // ===== SMOOTH SCROLL FOR NAVIGATION (Apple easing) =====
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            // Prefer the element's hash (handles absolute URLs too)
-            const hash = this.hash || this.getAttribute('href');
-            if (!hash || hash === '#') return; // ignore empty anchors
+    // Delegated handler in capture phase to ensure clicks are handled even
+    // if other scripts intercept or stop propagation (fixes issues after deploy).
+    (function () {
+        const headerOffset = 48; // header height to offset scroll
 
-            // Try to resolve the target element
-            let target = null;
+        function findTargetFromHash(hash) {
+            if (!hash || hash === '#') return null;
+            // try by ID first
+            const id = hash.replace(/^#/, '');
+            let target = document.getElementById(id);
+            if (target) return target;
+            // fallback to querySelector (handles complex selectors)
             try {
                 target = document.querySelector(hash);
             } catch (err) {
-                // invalid selector, try by id fallback
-                const id = hash.replace(/^#/, '');
-                target = document.getElementById(id);
+                target = null;
             }
+            return target;
+        }
 
-            if (!target) {
-                // If target not found, allow default behavior (or no-op)
-                // Log in console to help debug missing IDs
-                console.warn('Smooth-scroll: target not found for', hash);
-                return;
-            }
-
-            // Only prevent default when we will handle scrolling
-            e.preventDefault();
-            const headerOffset = 48; // Apple header height
-
-            // Use scrollIntoView for more consistent browser behavior, then adjust for fixed header
+        function smoothScrollTo(target, hash) {
+            if (!target) return;
             try {
                 target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-                // After a short delay, nudge the page up by headerOffset to account for fixed header.
-                // Use a timeout because scrollIntoView is async and browsers vary in timing.
                 setTimeout(() => {
-                    // Use instant behavior on the nudge to avoid double-smooth animation issues
+                    // nudge up to account for fixed header
                     window.scrollBy({ top: -headerOffset, left: 0, behavior: 'smooth' });
-                    // update the fragment identifier in the URL without jumping
-                    if (history.replaceState) {
-                        history.replaceState(null, '', hash);
-                    } else {
-                        location.hash = hash;
-                    }
+                    if (history.replaceState) history.replaceState(null, '', hash);
                 }, 300);
             } catch (err) {
-                // Fallback to manual calculation
                 const elementPosition = target.getBoundingClientRect().top;
                 const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
                 window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
             }
-        });
-    });
+        }
+
+        // Capture-phase delegated click listener
+        document.addEventListener('click', function (e) {
+            const anchor = e.target.closest && e.target.closest('a[href^="#"]');
+            if (!anchor) return;
+
+            const hash = anchor.getAttribute('href');
+            const target = findTargetFromHash(hash);
+            if (!target) {
+                // If no in-page target, allow default (could be external or noop)
+                return;
+            }
+
+            // Prevent default navigation and perform a smooth scroll
+            e.preventDefault();
+            smoothScrollTo(target, hash);
+        }, true); // useCapture = true
+    })();
 
     // ===== GALLERY IMAGE INTERACTION (Apple minimal) =====
     const galleryImages = document.querySelectorAll('.gallery-grid img');
