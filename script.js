@@ -400,6 +400,47 @@ document.addEventListener('DOMContentLoaded', function () {
         }, true); // useCapture = true
     })();
 
+    // ===== DIRECT SMOOTH SCROLL FOR KEY CTA BUTTONS =====
+    // Some deployments may block delegated handlers; attach direct handlers
+    // to hero CTAs and the CTA section to guarantee behavior.
+    (function () {
+        const headerOffset = 48;
+
+        function findTarget(hash) {
+            if (!hash || hash === '#') return null;
+            const id = hash.replace(/^#/, '');
+            const byId = document.getElementById(id);
+            if (byId) return byId;
+            try { return document.querySelector(hash); } catch (e) { return null; }
+        }
+
+        function doScroll(hash) {
+            const target = findTarget(hash);
+            if (!target) return;
+            try {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                setTimeout(() => window.scrollBy({ top: -headerOffset, left: 0, behavior: 'smooth' }), 300);
+            } catch (err) {
+                const elementPosition = target.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+            }
+        }
+
+        const selectors = ['.hero-ctas a[href^="#"]', '.cta-actions a[href^="#"]', 'nav#main-nav a[href^="#"]'];
+        selectors.forEach(sel => {
+            document.querySelectorAll(sel).forEach(a => {
+                a.addEventListener('click', function (e) {
+                    const href = this.getAttribute('href');
+                    const target = findTarget(href);
+                    if (!target) return; // allow default for external or missing
+                    e.preventDefault();
+                    doScroll(href);
+                });
+            });
+        });
+    })();
+
     // ===== GALLERY IMAGE INTERACTION (Apple minimal) =====
     const galleryImages = document.querySelectorAll('.gallery-grid img');
     galleryImages.forEach(img => {
