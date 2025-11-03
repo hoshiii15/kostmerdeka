@@ -22,12 +22,26 @@
                 <a href="#testimonials">Testimoni</a>
                 <a class="btn-outline" href="#cta">Booking</a>
             </nav>
+            <button class="hamburger" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
     </header>
 
     <main>
-        <!-- Hero - Fullscreen Apple style -->
+        <!-- Hero - Fullscreen Apple style with video background -->
         <section class="hero">
+            <div class="hero-bg">
+                <video autoplay muted loop playsinline class="hero-video">
+                    <source src="images/hero-video.mp4" type="video/mp4">
+                </video>
+                <div class="hero-image-fallback">
+                    <img src="images/kost-luar.jpeg" alt="Kost Merdeka - Background" />
+                </div>
+                <div class="hero-overlay"></div>
+            </div>
             <div class="hero-inner">
                 <div class="hero-copy reveal">
                     <h1>Kost Merdeka.<br>Hunian Premium.</h1>
@@ -39,7 +53,7 @@
                     <a class="btn-ghost" href="#rooms">Lihat Kamar</a>
                 </div>
                 <div class="hero-media reveal">
-                    <img src="images/kost-luar.jpeg" alt="Kost Merdeka" />
+                    <img src="images/kost-luar.jpeg" alt="Kost Merdeka  " />
                 </div>
             </div>
         </section>
@@ -244,9 +258,9 @@
 
                 <div class="map-wrapper reveal">
                     <h3>Lokasi Strategis</h3>
-                    <!-- Replace query parameter to point to an exact address if available -->
-                    <iframe src="https://www.google.com/maps?q=Universitas+Merdeka+Malang&output=embed" loading="lazy"
-                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <!-- Replace with your actual location embed -->
+                    <iframe id="mapEmbed" src="https://www.google.com/maps?q=Universitas+Merdeka+Malang&output=embed"
+                        loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
             </div>
         </section>
@@ -286,13 +300,18 @@
                 <h2 class="reveal">Siap pindah ke Kost Merdeka?</h2>
                 <p class="reveal">Hubungi kami untuk info ketersediaan kamar dan jadwalkan tur lokasi.</p>
                 <div class="cta-actions reveal">
-                    <a class="btn-primary large"
+                    <a class="btn-primary large" id="whatsappBtn"
                         href="https://wa.me/6281234567890?text=Halo%20Kost%20Merdeka%2C%20saya%20ingin%20menanyakan%20ketersediaan%20kamar"
                         target="_blank">Booking via WhatsApp</a>
-                    <a class="btn-ghost" href="tel:+6281234567890">Hubungi via Telepon</a>
+                    <a class="btn-ghost" id="phoneBtn" href="tel:+6281234567890">Hubungi via Telepon</a>
                 </div>
                 <div class="contact-info reveal">
-                    Tel: +62 812-3456-7890 • Email: info@kostmerdeka.com
+                    <p><strong>Telepon:</strong> <a href="tel:+6281234567890" id="contactPhone">+62 812-3456-7890</a>
+                    </p>
+                    <p><strong>Email:</strong> <a href="mailto:info@kostmerdeka.com"
+                            id="emailLink">info@kostmerdeka.com</a></p>
+                    <p><strong>Alamat:</strong> <span id="addressText">Jl. Merdeka No. 123, Malang, Jawa Timur</span>
+                    </p>
                 </div>
             </div>
         </section>

@@ -4,6 +4,42 @@ document.addEventListener('DOMContentLoaded', function () {
     const yearEl = document.getElementById('year');
     if (yearEl) yearEl.textContent = new Date().getFullYear();
 
+    // ===== HAMBURGER MENU TOGGLE =====
+    const hamburger = document.querySelector('.hamburger');
+    const navMenu = document.querySelector('.nav');
+
+    if (hamburger && navMenu) {
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+            document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
+        });
+
+        // Close menu when clicking nav link
+        document.querySelectorAll('.nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+    }
+
+    // ===== VIDEO BACKGROUND HANDLER =====
+    const heroVideo = document.querySelector('.hero-video');
+    if (heroVideo) {
+        heroVideo.addEventListener('loadeddata', () => {
+            heroVideo.classList.add('loaded');
+        });
+
+        // Fallback if video doesn't load
+        setTimeout(() => {
+            if (!heroVideo.classList.contains('loaded')) {
+                heroVideo.style.display = 'none';
+            }
+        }, 3000);
+    }
+
     // ===== SCROLL PROGRESS BAR (Apple style) =====
     const progressBar = document.createElement('div');
     progressBar.className = 'scroll-progress';
